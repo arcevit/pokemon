@@ -27,7 +27,7 @@ const InsetList = (props: { pokemon: IPokemon }) => {
   const history = useHistory();
 
   return (
-    <ListItem>
+    <ListItem data-testid={"inset-list-" + name}>
       <ListItemAvatar>
         <Avatar aria-label="recipe" className={classes.avatar}>
           {name.charAt(1)}
@@ -36,6 +36,7 @@ const InsetList = (props: { pokemon: IPokemon }) => {
       <ListItemText primary={name} className={classes.name} />
       <ListItemSecondaryAction>
         <Button
+          data-testid={"inset-list-button-" + name}
           size="small"
           color="primary"
           onClick={() =>

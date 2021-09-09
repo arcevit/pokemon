@@ -49,7 +49,11 @@ function Main() {
 
   return (
     <main>
-      <Container className={classes.cardGrid} maxWidth="sm">
+      <Container
+        className={classes.cardGrid}
+        maxWidth="sm"
+        data-testid="main-container"
+      >
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Input
