@@ -7,9 +7,10 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
 import Pagination from "./Pagination";
 import { usePokemon } from "../hooks/usePokemon";
+import InsetList from "./InsetList";
+import { IPokemon } from "../types&Interfaces/interfaces";
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardGrid: {
@@ -75,8 +76,8 @@ function Main() {
             <Divider />
             {allPokemon
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((pokemon) => (
-                <ListItem key={pokemon.name}>{pokemon.name}</ListItem>
+              .map((pokemon: IPokemon) => (
+                <InsetList key={pokemon.name} pokemon={pokemon} />
               ))}
           </List>
           <Divider />
