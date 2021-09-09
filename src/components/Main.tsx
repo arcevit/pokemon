@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
@@ -8,14 +9,12 @@ import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import Pagination from "./Pagination";
+import { usePokemon } from "../hooks/usePokemon";
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardGrid: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
-  },
-  loading: {
-    textAlign: "center",
   },
   root: {
     width: "100%",
@@ -32,7 +31,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Main() {
   const classes = useStyles();
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+  const { allPokemon, query, setQuery } = usePokemon();
+
+  const onQueryChange = (e: ChangeEvent<HTMLInputElement>) =>
+    setQuery(e.target.value);
 
   return (
     <main>
@@ -48,13 +50,15 @@ function Main() {
               }
               placeholder="Search a pokemon by name"
               className={classes.input}
+              value={query}
+              onChange={onQueryChange}
             />
           </Grid>
           <List component="nav" className={classes.root} aria-label="contacts">
             <Pagination />
             <Divider />
-            {arr.map((item) => (
-              <ListItem key={item}>{item}</ListItem>
+            {allPokemon.map((pokemon) => (
+              <ListItem key={pokemon.name}>{pokemon.name}</ListItem>
             ))}
           </List>
           <Divider />

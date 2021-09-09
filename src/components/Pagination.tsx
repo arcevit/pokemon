@@ -2,7 +2,7 @@ import React from "react";
 import TablePagination from "@material-ui/core/TablePagination";
 
 export default function Pagination() {
-  const [page, setPage] = React.useState(2);
+  const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
