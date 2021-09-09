@@ -1,16 +1,25 @@
-import React from "react";
+import { ChangeEvent } from "react";
 import TablePagination from "@material-ui/core/TablePagination";
 
-export default function Pagination() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+export default function Pagination({
+  allPokemonLength,
+  page,
+  rowsPerPage,
+  setRowsPerPage,
+  setPage,
+}: {
+  allPokemonLength: number;
+  page: number;
+  rowsPerPage: number;
+  setRowsPerPage: (a: number) => void;
+  setPage: (a: number) => void;
+}) {
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -18,8 +27,9 @@ export default function Pagination() {
 
   return (
     <TablePagination
+      rowsPerPageOptions={[10, 20, 50]}
       component="div"
-      count={100}
+      count={allPokemonLength}
       page={page}
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}

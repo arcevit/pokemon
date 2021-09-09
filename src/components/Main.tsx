@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useCallback } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
@@ -31,10 +31,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 function Main() {
   const classes = useStyles();
-  const { allPokemon, query, setQuery } = usePokemon();
+  const {
+    allPokemon,
+    query,
+    setQuery,
+    page,
+    rowsPerPage,
+    setRowsPerPage,
+    setPage,
+  } = usePokemon();
 
-  const onQueryChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setQuery(e.target.value);
+  const onQueryChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value),
+    [setQuery]
+  );
 
   return (
     <main>
@@ -55,11 +65,19 @@ function Main() {
             />
           </Grid>
           <List component="nav" className={classes.root} aria-label="contacts">
-            <Pagination />
+            <Pagination
+              allPokemonLength={allPokemon.length}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+              setPage={setPage}
+            />
             <Divider />
-            {allPokemon.map((pokemon) => (
-              <ListItem key={pokemon.name}>{pokemon.name}</ListItem>
-            ))}
+            {allPokemon
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((pokemon) => (
+                <ListItem key={pokemon.name}>{pokemon.name}</ListItem>
+              ))}
           </List>
           <Divider />
         </Grid>
