@@ -3,6 +3,11 @@ import axios from "axios";
 import { useParams } from "react-router";
 import Container from "@material-ui/core/Container";
 import { makeStyles, Theme } from "@material-ui/core/styles";
+import { IProfile } from "../types&Interfaces/interfaces";
+import ProfileCard from "../components/ProfileCard";
+import IconButton from "@material-ui/core/IconButton";
+import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardGrid: {
@@ -20,9 +25,10 @@ type TParams = {
 
 function PokemonProfile() {
   const [loading, setLoading] = useState(true);
-  const [pokemon, setPokemon] = useState<any>();
+  const [pokemon, setPokemon] = useState<IProfile>({} as IProfile);
   const classes = useStyles();
   const params = useParams() as TParams;
+  const history = useHistory();
 
   useEffect(() => {
     (async () => {
@@ -41,7 +47,15 @@ function PokemonProfile() {
   ) : (
     <main>
       <Container className={classes.cardGrid} maxWidth="sm">
-        profile{pokemon.name}
+        <IconButton
+          color="primary"
+          aria-label="upload picture"
+          component="span"
+          onClick={() => history.push("/")}
+        >
+          <KeyboardBackspaceIcon />
+        </IconButton>
+        <ProfileCard pokemon={pokemon} />
       </Container>
     </main>
   );
