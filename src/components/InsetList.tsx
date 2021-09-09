@@ -7,6 +7,7 @@ import { red } from "@material-ui/core/colors";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import Button from "@material-ui/core/Button";
 import { IPokemon } from "../types&Interfaces/interfaces";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,7 +23,8 @@ const useStyles = makeStyles(() =>
 
 const InsetList = (props: { pokemon: IPokemon }) => {
   const classes = useStyles();
-  const { name } = props.pokemon;
+  const { name, url } = props.pokemon;
+  const history = useHistory();
 
   return (
     <ListItem>
@@ -33,7 +35,13 @@ const InsetList = (props: { pokemon: IPokemon }) => {
       </ListItemAvatar>
       <ListItemText primary={name} className={classes.name} />
       <ListItemSecondaryAction>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() =>
+            history?.push(`/pokemon/${url.replace(/.*\/(\w+)\/?$/, "$1")}`)
+          }
+        >
           Learn More
         </Button>
       </ListItemSecondaryAction>
