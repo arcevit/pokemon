@@ -7,6 +7,7 @@ import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
+import Pagination from "./Pagination";
 
 const useStyles = makeStyles((theme: Theme) => ({
   cardGrid: {
@@ -50,9 +51,10 @@ function Main() {
             />
           </Grid>
           <List component="nav" className={classes.root} aria-label="contacts">
+            <Pagination />
             <Divider />
             {arr.map((item) => (
-              <ListItem>{item}</ListItem>
+              <ListItem key={item}>{item}</ListItem>
             ))}
           </List>
           <Divider />
